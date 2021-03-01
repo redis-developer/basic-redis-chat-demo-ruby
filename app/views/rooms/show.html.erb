@@ -1,0 +1,123 @@
+<div class="chat-main-block">
+  <div class="container py-5 px-4">
+    <div class="custom-chat-body chat-body row overflow-hidden shadow bg-light rounded">
+      <div class="col-4 px-0">
+        <div class="chat-list-container flex-column d-flex pr-4">
+          <div class="py-2">
+            <p class="h5 mb-0 py-1 chats-title">Chats</p>
+          </div>
+          <%= render 'rooms' %>
+        <div class="row no-gutters align-items-center pl-4 pr-2 pb-3" style="height: inherit; flex: 0 1 0%; min-height: 50px;">
+          <div class="col-8 d-flex align-items-center ">
+            <div class="align-self-center mr-3">
+              <%= image_tag current_user.avatar, class: 'rounded-circle avatar-xs', style: 'width: 32px; height: 32px; object-fit: cover;' %>
+            </div>
+            <div class="media-body">
+              <h5 class="font-size-14 mt-0 mb-1"><%= current_user.username %></h5>
+              <div class="d-flex align-items-center">
+                <div class="rounded-circle bg-success" style="width: 8px; height: 8px; opacity: 1;"></div>
+                <p class="ml-2 text-muted mb-0">Active</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 text-danger text-right" style="cursor: pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" width="1em" height="1em" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.578 4.437a5 5 0 1 0 4.922.044l.5-.866a6 6 0 1 1-5.908-.053l.486.875z"></path>
+              <path fill-rule="evenodd" d="M7.5 8V1h1v7h-1z"></path>
+            </svg>
+            <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'color-red' %>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-8 px-0 flex-column bg-white rounded-lg">
+      <div class="px-4 py-4" style="border-bottom: 1px solid rgb(238, 238, 238);">
+        <h2 class="font-size-15 mb-0"><%= @room.general? ? @room.name : opposite_user(@room, current_user.id).username %></h2>
+      </div>
+
+      <div class="main-chat-box chat-box-wrapper position-relative d-flex max-height-30">
+        <div class="px-4 pt-5 chat-box-custom w-100">
+          <div class="chat" data-channel-subscribe="room" data-room-id="<%= @room.id %>">
+            <% @room_messages.each do |message| %>
+              <div id='room-messages-count' data-messages-count=<%= @room_messages.count %>></div>
+              <% if message.connected_message? %>
+                <p class="mb-2 fs-6 fw-light fst-italic text-black-50 text-center message-block" style="opacity: 0.8; font-size: 14px;"><%= message.message %></p>
+              <% else %>
+                <div class="d-flex message-block">
+                  <% if current_user_owner?(message) %>
+                    <div style="flex: 1 1 0%;"></div>
+                  <% end %>
+                  <div class="<%= check_position(message) %> mb-4" style='width: 50%'>
+                    <div class="conversation-list d-inline-block px-3 py-2" style="border-radius: 12px; background-color: rgba(85, 110, 230, 0.1);">
+                      <div class="ctext-wrap">
+                        <div class="conversation-name text-primary d-flex align-items-center mb-1">
+                          <div class="mr-2" style="font-weight: 600; cursor: pointer;"><%= message.user.username %></div>
+                          <% unless current_user_owner?(message) %>
+                            <div class="rounded-circle <%= check_online(message.user) %>" style="width: 7px; height: 7px; opacity: 1;"></div>
+                          <% end %>
+                        </div>
+                        <p class="text-left"><%= message.message %></p>
+                        <p class="chat-time mb-0">
+                          <svg width="12" height="12" class="prefix__MuiSvgIcon-root prefix__jss80 prefix__MuiSvgIcon-fontSizeLarge" viewbox="0 0 24 24" aria-hidden="true">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                            <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path>
+                          </svg>
+                          <%= message.created_at.strftime('%H:%M %P') %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="p-3 chat-input-section">
+        <%= form_for @room_message, url: url_for(controller: 'room_messages', action: 'create'), html: { class: 'row' }, remote: true do |form| %>
+          <div class="col">
+            <div class="position-relative">
+              <%= form.text_field :message, wrapper: false, class: 'form-control chat-input', autocomplete: 'off', placeholder: 'Enter Message...' %>
+            </div>
+          </div>
+          <div class="col-auto">
+            <%= form.submit 'Send', class: 'btn btn-primary btn-rounded chat-send w-md' do %>
+              <svg width="13" height="13" viewbox="0 0 24 24" tabindex="-1">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="white"></path>
+              </svg>
+            <% end %>
+          </div>
+          <%= form.hidden_field :room_id, value: @room.id %>
+        <% end %>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-none" data-role="message-template">
+  <p class="mb-2 fs-6 fw-light fst-italic text-black-50 text-center hide connected-message-socket" style="opacity: 0.8; font-size: 14px;"><span data-role="message-text"></span></p>
+  <div class="d-flex message-socket">
+    <div data-message-user-id="<%= current_user.id %>" style="flex: 1 1 0%;" class='hide empty-message-div'></div>
+    <div class="mb-4 rooms-show-message-position" style='width: 50%'>
+      <div class="conversation-list d-inline-block px-3 py-2" style="border-radius: 12px; background-color: rgba(85, 110, 230, 0.1);">
+        <div class="ctext-wrap">
+          <div class="conversation-name text-primary d-flex align-items-center mb-1">
+            <div class="mr-2" style="font-weight: 600; cursor: pointer;">
+              <div data-role="message-username"></div>
+            </div>
+            <div class="rounded-circle rounded-circle-socket bg-success" style="width: 7px; height: 7px; opacity: 1;"></div>
+          </div>
+          <p class="text-left"><span class="text-left" data-role="message-text"></span></p>
+          <p class="chat-time mb-0">
+            <svg width="12" height="12" class="prefix__MuiSvgIcon-root prefix__jss80 prefix__MuiSvgIcon-fontSizeLarge" viewbox="0 0 24 24" aria-hidden="true">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+              <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path>
+            </svg>
+            <span data-role="message-date"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

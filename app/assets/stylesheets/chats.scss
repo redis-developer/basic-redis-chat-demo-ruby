@@ -1,0 +1,34 @@
+.chat-list {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.chat-main-block {
+  height: 100%;
+  background-color: rgb(73, 80, 87);
+}
+
+.custom-chat-body {
+  border-radius: 10px !important;
+}
+
+.custom-chat-item {
+  cursor: pointer !important;
+  padding: 14px 16px !important;
+}
+
+.link-chat-block {
+  color: black;
+}
+
+.link-chat-block:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.chat-box-custom {
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 13px !important;
+  color: #495057 !important;
+}
