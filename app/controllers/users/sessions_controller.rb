@@ -8,9 +8,9 @@ class Users::SessionsController < Devise::SessionsController
     user = User.find(params[:id])
     if user.present? && user.valid_password?(params[:password])
       sign_in(user)
-      send_connect_message("#{current_user.username} connected")# unless current_user.online?
-      user.update(online: true)
-      ActionCable.server.broadcast 'appearance', user_id: current_user.id
+      Redis.new.del("logout_#{current_user.id}")
+      broadcast(true)
+      send_connect_message("#{current_user.username} connected") unless current_user.online?
       redirect_to root_path
     else
       redirect_to new_user_session_path
@@ -18,11 +18,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def destroy
-    ActionCable.server.broadcast 'disappearance', user_id: current_user.id
-    current_user.update(online: false)
-    send_connect_message("#{current_user.username} left")
+    broadcast(false)
+    send_connect_message("#{current_user.username} left") unless current_user.need_logout?
     sign_out(current_user)
-    ActionCable.server.remote_connections.where(current_user: current_user).disconnect
     redirect_to root_path
   end
 
@@ -31,5 +29,11 @@ class Users::SessionsController < Devise::SessionsController
     room_message = RoomMessage.create(room: room, user: current_user, message: message,
                                       connected_message: true)
     ActionCable.server.broadcast 'room', room_message
+  end
+
+  private
+
+  def broadcast(online)
+    ActionCable.server.broadcast 'appearance', user_id: current_user.id, online: online
   end
 end

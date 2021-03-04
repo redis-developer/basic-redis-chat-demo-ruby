@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   root 'rooms#show'
 
-  resources :room_messages
-  resources :rooms
+  resources :room_messages, only: %i[index create]
+  resources :users, only: :index
+  resources :rooms, only: %i[index show]
 end

@@ -1,0 +1,34 @@
+{
+  "app_name": "Basic Ruby on Rails Redis chat",
+  "description": "Showcases how to impliment chat app in Ruby on Rails and Redis",
+  "type": "App",
+  "contributed_by": "Redis Labs",
+  "repo_url": "https://github.com/redis-developer/basic-redis-chat-demo-ruby",
+  "download_url": "https://github.com/redis-developer/basic-redis-chat-demo-ruby/main/main.zip",
+  "hosted_url": "",
+  "quick_deploy": "true",
+  "deploy_buttons": [
+    {
+      "heroku": ""
+    },
+    {
+      "Google": ""
+    }
+  ],
+  "language": ["Java"],
+  "redis_commands": [
+    "AUTH",
+    "SET",
+    "GET",
+    "DEL"
+  ],
+  "redis_features": [],
+  "redis_modules": [],
+  "app_image_urls": [
+    "https://github.com/redis-developer/basic-redis-chat-demo-ruby/blob/master/public/redis-chat.png"
+  ],
+  "youtube_url": "",
+  "special_tags": [],
+  "verticals": [],
+  "markdown": "https://github.com/redis-developer/basic-redis-chat-demo-ruby/blob/master/README.md"
+}

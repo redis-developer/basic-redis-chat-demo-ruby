@@ -9,8 +9,15 @@ class User < ApplicationRecord
   has_many :room_messages,
            dependent: :destroy
 
-  def gravatar_url
-    gravatar_id = Digest::MD5::hexdigest(email).downcase
-    "https://gravatar.com/avatar/#{gravatar_id}.png"
+  def online?
+    Redis.new.get("user_#{self.id}_online").present?
+  end
+
+  def need_logout?
+    Redis.new.get("logout_#{self.id}").present?
+  end
+
+  def self.online_users
+    Redis.new.hgetall('online_users')
   end
 end

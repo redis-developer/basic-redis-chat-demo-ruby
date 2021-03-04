@@ -6,8 +6,8 @@ class RoomMessage < ApplicationRecord
 
   before_save :save_username
 
-  def as_json(options)
-    super(options).merge(user_avatar_url: user.gravatar_url)
+  def self.all_messages
+    Redis.new.hgetall('room_messages')
   end
 
   private
