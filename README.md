@@ -28,7 +28,7 @@ The real-time functionality is handled by **Server Sent Events** for server->cli
 
 **Rooms** which user has may too are stored at `id:{userIds}` as a set of room ids.
 
-**Messages** are stored at `room:{roomId}` key in a sorted set (as mentioned above). 
+**Messages** are stored at `room:{roomId}` key in a sorted set (as mentioned above).
 
 ### How the data is accessed:
 
@@ -54,7 +54,9 @@ cp config/application.example.yml config/application.yml
 - REDIS_URL: Redis server URI
 
 cp config/database.example.yml config/database.yml
-rails db:setup
+rails db:create
+rails db:migrate
+rails db:seed
 ```
 
 #### Run the app
