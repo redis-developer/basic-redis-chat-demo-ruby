@@ -15,11 +15,13 @@
       "Google": ""
     }
   ],
-  "language": ["Java"],
+  "language": ["Ruby"],
   "redis_commands": [
     "AUTH",
     "SET",
-    "GET",
+    "HSET",
+    "HGET",
+    "HGETALL",
     "DEL"
   ],
   "redis_features": [],
