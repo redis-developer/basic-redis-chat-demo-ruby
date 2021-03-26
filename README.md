@@ -3,13 +3,23 @@
 A basic chat application built with Ruby on Rails with ActionCable and Redis.
 Chat refers to the process of communicating, interacting and/or exchanging messages. It involves two or more individuals that communicate through a chat-enabled service or software.
 
+## Try it out
+
+#### Deploy to Heroku
+
+<p>
+  <a href="" target="_blank">
+      <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heorku" />
+  </a>
+</p>
+
 ## How it works?
 
 ![How it works](public/redis-chat.png)
 
 The chat server works as a basic *REST* API which involves keeping the session and handling the user state in the chat rooms (besides the WebSocket/real-time part).
 
-When the server starts, the initialization step occurs. At first, a new Redis connection is established and it's checked whether it's needed to load the demo data. 
+When the server starts, the initialization step occurs. At first, a new Redis connection is established and it's checked whether it's needed to load the demo data.
 
 ### Initialization
 For simplicity, a key with **total_users** value is checked: if it does not exist, we fill the Redis database with initial data.
@@ -23,19 +33,19 @@ We create a new user id: `INCR total_users`. Then we set a user ID lookup key by
 Additionally, each user is added to the default "General" room. For handling rooms for each user, we have a set that holds the room ids. Here's an example command of how to add the room: ***e.g.*** `SADD user:1:rooms "0"`.
 
 **Populate private messages between users.**
-At first, private rooms are created: if a private room needs to be established, for each user a room id: `room:1:2` is generated, where numbers correspond to the user ids in ascending order. 
+At first, private rooms are created: if a private room needs to be established, for each user a room id: `room:1:2` is generated, where numbers correspond to the user ids in ascending order.
 
 ***E.g.*** Create a private room between 2 users: `SADD user:1:rooms 1:2` and `SADD user:2:rooms 1:2`.
 
-Then we add messages to this room by writing to a sorted set: 
-***E.g.*** `ZADD room:1:2 1615480369 "{'from': 1, 'date': 1615480369, 'message': 'Hello', 'roomId': '1:2'}"`. 
+Then we add messages to this room by writing to a sorted set:
+***E.g.*** `ZADD room:1:2 1615480369 "{'from': 1, 'date': 1615480369, 'message': 'Hello', 'roomId': '1:2'}"`.
 
 We use a stringified *JSON* for keeping the message structure and simplify the implementation details for this demo-app.
 
 **Populate the "General" room with messages.** Messages are added to the sorted set with id of the "General" room: `room:0`
 
 ### Pub/sub
-After initialization, a pub/sub subscription is created: `SUBSCRIBE MESSAGES`. At the same time, each server instance will run a listener on a message on this channel to receive real-time updates. 
+After initialization, a pub/sub subscription is created: `SUBSCRIBE MESSAGES`. At the same time, each server instance will run a listener on a message on this channel to receive real-time updates.
 
 Again, for simplicity, each message is serialized to ***JSON***, which we parse and then handle in the same manner, as WebSocket messages.
 
@@ -45,9 +55,9 @@ Pub/sub allows connecting multiple servers written in different platforms withou
 
 When a WebSocket/real-time server is instantiated, which listens for the next events:
 
-**Connection**. A new user is connected. At this point, a user ID is captured and saved to the session (which is cached in Redis). Note, that session caching is language/library-specific and it's used here purely for persistence and maintaining the state between server reloads. 
+**Connection**. A new user is connected. At this point, a user ID is captured and saved to the session (which is cached in Redis). Note, that session caching is language/library-specific and it's used here purely for persistence and maintaining the state between server reloads.
 
-A global set with `online_users` key is used for keeping the online state for each user. So on a new connection, a user ID is written to that set: 
+A global set with `online_users` key is used for keeping the online state for each user. So on a new connection, a user ID is written to that set:
 
 **E.g.** `SADD online_users 1` (We add user with id 1 to the set **online_users**).
 
@@ -59,9 +69,9 @@ After that, a message is broadcasted to the clients to notify them that a new us
 
 `PUBLISH message "{'serverId': 4132, 'type':'message', 'data': {'from': 1, 'date': 1615480369, 'message': 'Hello', 'roomId': '1:2'}}"`
 
-Note we send additional data related to the type of the message and the server id. Server id is used to discard the messages by the server instance which sends them since it is connected to the same `MESSAGES` channel. 
+Note we send additional data related to the type of the message and the server id. Server id is used to discard the messages by the server instance which sends them since it is connected to the same `MESSAGES` channel.
 
-`type` field of the serialized JSON corresponds to the real-time method we use for real-time communication (connect/disconnect/message). 
+`type` field of the serialized JSON corresponds to the real-time method we use for real-time communication (connect/disconnect/message).
 
 `data` is method-specific information. In the example above it's related to the new message.
 
@@ -96,7 +106,7 @@ The real-time functionality is handled by **Server Sent Events** for server->cli
 
 **Get room ids of a user:** `SMEMBERS user:{id}:rooms`. Example: `SMEMBERS user:2:rooms`. This will return IDs of rooms for user with ID: 2
 
-**Get list of messages** `ZREVRANGE room:{roomId} {offset_start} {offset_end}`. 
+**Get list of messages** `ZREVRANGE room:{roomId} {offset_start} {offset_end}`.
 Example: `ZREVRANGE room:1:2 0 50` will return 50 messages with 0 offsets for the private room between users with IDs 1 and 2.
 
 ## How to run it locally?
