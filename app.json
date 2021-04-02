@@ -4,6 +4,7 @@
     "repository": "https://github.com/redis-developer/basic-redis-chat-demo-ruby.git",
     "logo": "https://redis.io/images/redis-white.png",
     "keywords": ["ruby", "redis", "chat", "sockets"],
+    "stack": "heroku-18",
     "env": {
         "REDIS_URL": {
             "description": "Redis server host:port, ex: 127.0.0.1:6379",
