@@ -6,7 +6,7 @@
     "keywords": ["ruby", "redis", "chat", "sockets"],
     "stack": "heroku-18",
     "scripts": {
-      "postdeploy": "rake db:migrate && rake db:seed"
+      "postdeploy": "rake db:migrate"
     },
     "env": {
         "REDIS_URL": {
