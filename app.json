@@ -3,7 +3,7 @@
     "description": "Show how the redis works with Ruby on Rails.",
     "repository": "https://github.com/redis-developer/basic-redis-chat-demo-ruby.git",
     "logo": "https://redis.io/images/redis-white.png",
-    "keywords": ["ruby", "redis", "chat", "sockets"]
+    "keywords": ["ruby", "redis", "chat", "sockets"],
     "env": {
         "REDIS_ENDPOINT_URL": {
             "description": "Redis server host:port, ex: 127.0.0.1:6379",

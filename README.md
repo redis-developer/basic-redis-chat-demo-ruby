@@ -8,7 +8,7 @@ Chat refers to the process of communicating, interacting and/or exchanging messa
 #### Deploy to Heroku
 
 <p>
-  <a href="" target="_blank">
+  <a href="https://heroku.com/deploy" target="_blank">
       <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heorku" />
   </a>
 </p>
