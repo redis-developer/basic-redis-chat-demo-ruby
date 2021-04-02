@@ -7,3 +7,5 @@
 # stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
 
 REDIS_URL: ''
+USER: ''
+PASSWORD: ''

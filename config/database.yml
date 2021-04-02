@@ -10,5 +10,5 @@ development:
 production:
   <<: *default
   database: rails-chat_production
-  username: ''
-  password: ''
+  username: <%= ENV['USER'] %>
+  password: <%= ENV['PASSWORD'] %>
