@@ -10,8 +10,7 @@
             "required": true
         },
         "REDIS_PASSWORD": {
-            "description": "Redis server password",
-            "required": true
+            "description": "Redis server password"
         },
         "PORT": {
             "description": "Public port",
