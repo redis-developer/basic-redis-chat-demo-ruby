@@ -121,7 +121,7 @@ Example: `ZREVRANGE room:1:2 0 50` will return 50 messages with 0 offsets for th
 #### Run
 
 ```sh
-# copy files and set proper data inside
+# Set proper data inside
   Open file config/application.yml and set value to keys:
 - REDIS_URL: Redis server URI
 - USER: Redis username
