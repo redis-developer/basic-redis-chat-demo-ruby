@@ -8,20 +8,6 @@
     "scripts": {
       "postdeploy": "rake db:migrate && rake db:seed"
     },
-    "addons": [
-      {
-        "plan": "heroku-postgresql",
-        "options": {
-          "version": "9.6"
-        }
-      },
-      {
-        "plan": "heroku-redis",
-        "options": {
-          "version": "6"
-        }
-      }
-    ],
     "env": {
         "REDIS_URL": {
             "description": "Redis server host:port, ex: 127.0.0.1:6379",
