@@ -9,7 +9,6 @@
       "postdeploy": "rake db:migrate && rake db:seed"
     },
     "addons": [
-      "openredis",
       {
         "plan": "heroku-postgresql",
         "options": {
