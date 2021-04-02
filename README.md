@@ -15,8 +15,11 @@ Chat refers to the process of communicating, interacting and/or exchanging messa
 
 ## How it works?
 
-![How it works](public/redis-chat.png)
+### Sign in
+![How it works](app/assets/images/login.png)
 
+### Chats
+![How it works](app/assets/images/chats.png)
 The chat server works as a basic *REST* API which involves keeping the session and handling the user state in the chat rooms (besides the WebSocket/real-time part).
 
 When the server starts, the initialization step occurs. At first, a new Redis connection is established and it's checked whether it's needed to load the demo data.
