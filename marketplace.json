@@ -9,10 +9,7 @@
   "quick_deploy": "true",
   "deploy_buttons": [
     {
-      "heroku": ""
-    },
-    {
-      "Google": ""
+      "heroku": "https://heroku.com/deploy"
     }
   ],
   "language": ["Ruby"],
