@@ -6,8 +6,16 @@
     "keywords": ["ruby", "redis", "chat", "sockets"],
     "stack": "heroku-18",
     "scripts": {
-      "postdeploy": "rake db:migrate"
+      "postdeploy": "rake db:migrate && rake db:seed"
     },
+    "addons": [
+      {
+        "plan": "heroku-redis",
+        "options": {
+          "version": "6.0"
+        }
+      }
+    ],
     "env": {
         "REDIS_URL": {
             "description": "Redis server host:port, ex: 127.0.0.1:6379",
