@@ -122,10 +122,12 @@ Example: `ZREVRANGE room:1:2 0 50` will return 50 messages with 0 offsets for th
 
 ```sh
 # copy files and set proper data inside
-cp config/application.example.yml config/application.yml
+  Open file config/application.yml and set value to keys:
 - REDIS_URL: Redis server URI
+- USER: Redis username
+- PASSWORD: Redis password
 
-cp config/database.example.yml config/database.yml
+# Run commands in your terminal
 rails db:create
 rails db:migrate
 rails db:seed
