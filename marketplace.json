@@ -9,19 +9,31 @@
   "quick_deploy": "true",
   "deploy_buttons": [
     {
-      "heroku": "https://heroku.com/deploy"
+      "heroku": "https://heroku.com/deploy?template=https://github.com/redis-developer/basic-redis-chat-demo-ruby"
     }
   ],
   "language": ["Ruby"],
   "redis_commands": [
     "AUTH",
+    "INCR",
+    "DECR",
+    "HMSET",
+    "EXISTS",
+    "HEXISTS",
     "SET",
-    "HSET",
-    "HGET",
+    "GET",
     "HGETALL",
-    "DEL"
+    "ZRANGEBYSCORE",
+    "ZADD",
+    "SADD",
+    "HMGET",
+    "SISMEMBER",
+    "SMEMBERS",
+    "SREM",
+    "PUBLISH",
+    "SUBSCRIBE"
   ],
-  "redis_features": [],
+  "redis_features": ["PubSub"],
   "redis_modules": [],
   "app_image_urls": [
     "https://github.com/redis-developer/basic-redis-chat-demo-ruby/blob/master/public/redis-chat.png"
