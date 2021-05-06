@@ -10,7 +10,7 @@ Chat refers to the process of communicating, interacting and/or exchanging messa
 
 Here's a short video that explains the project and how it uses Redis:
 
-[![Watch the video on YouTube](public/YTThumbnail.png)](https://www.youtube.com/watch?v=JzQnGPCYywY)
+[![Watch the video on YouTube](public/YTThumbnail.png)](https://www.youtube.com/watch?v=miK7xDkDXF0)
 
 ## Technical Stacks
 
