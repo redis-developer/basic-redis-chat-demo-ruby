@@ -41,7 +41,7 @@
   "app_image_urls": [
     "https://github.com/redis-developer/basic-redis-chat-demo-ruby/blob/master/public/redis-chat.png"
   ],
-  "youtube_url": "",
+  "youtube_url": "https://www.youtube.com/watch?v=miK7xDkDXF0",
   "special_tags": [],
   "verticals": [],
   "markdown": "https://github.com/redis-developer/basic-redis-chat-demo-ruby/blob/master/README.md"
