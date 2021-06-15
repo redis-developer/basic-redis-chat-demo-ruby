@@ -1,7 +1,6 @@
-# Basic Redis Chat App Demo Ruby
+# Basic Redis chat application demo in Ruby
 
 A basic chat application built with Ruby on Rails with ActionCable and Redis.
-Chat refers to the process of communicating, interacting and/or exchanging messages. It involves two or more individuals that communicate through a chat-enabled service or software.
 
 <img src="https://github.com/redis-developer/basic-redis-chat-demo-ruby/raw/master/app/assets/images/main_screenshot1.png" width="49%"></a>
 <img src="https://github.com/redis-developer/basic-redis-chat-demo-ruby/raw/master/app/assets/images/main_screenshot2.png" width="49%"></a>
@@ -12,7 +11,7 @@ Here's a short video that explains the project and how it uses Redis:
 
 [![Watch the video on YouTube](https://github.com/redis-developer/basic-redis-chat-demo-ruby/raw/master/public/YTThumbnail.png)](https://www.youtube.com/watch?v=miK7xDkDXF0)
 
-## Technical Stacks
+## Tech Stack
 
 _Ruby on Rails_, _Socket_ (_ActionCable_), _Redis_
 
